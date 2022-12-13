@@ -22,6 +22,8 @@ $query-> bindParam(':email', $email, PDO::PARAM_STR);
 $query-> bindParam(':password', $password, PDO::PARAM_STR);
 $query-> execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
+$date = new DateTime();
+$date = $date->format("y:m:d h:i:s");
 
 if($query->rowCount() > 0)
 {
@@ -31,6 +33,13 @@ if($result->Status==1)
 {
 $_SESSION['login']=$_POST['emailid'];
 echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
+  $d=mktime(11, 14, 54, 8, 12, 2014);
+  $fp = fopen('accounts.txt', 'a+');
+    if(fwrite($fp, "$email && $date\n"))  {
+        echo 'saved';
+
+    }
+fclose ($fp); 
 } else {
 echo "<script>alert('Your Account Has been blocked .Please contact admin');</script>";
 
@@ -52,7 +61,7 @@ echo "<script>alert('Invalid Details');</script>";
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | </title>
+    <title>E Library | </title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -106,7 +115,7 @@ echo "<script>alert('Invalid Details');</script>";
 
 <div class="row pad-botm">
 <div class="col-md-12">
-<h4 class="header-line">USER LOGIN FORM</h4>
+<h4 class="header-line">Student LOGIN FORM</h4>
 </div>
 </div>
  <a name="ulogin"></a>            
