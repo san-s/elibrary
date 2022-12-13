@@ -8,6 +8,13 @@ $_SESSION['login']='';
 if(isset($_POST['login']))
 {
 
+if ($_POST["verficationcode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')
+    {
+    echo "<script>alert('Incorrect captcha');</script>" ;
+    }
+    else
+		{
+
 $email=$_POST['emailid'];
 $password=md5($_POST['password']);
 $sql ="SELECT EmailId,Password,StudentId,Status FROM tblstudents WHERE EmailId=:email and Password=:password";
@@ -35,6 +42,7 @@ echo "<script>alert('Your Account Has been blocked .Please contact admin');</scr
 
 else{
 echo "<script>alert('Invalid Details');</script>";
+}
 }
 }
 
@@ -124,7 +132,11 @@ echo "<script>alert('Invalid Details');</script>";
 <p class="help-block"><a href="user-forgot-password.php">Forgot Password</a></p>
 </div>
 
+<!--Cpatcha Image -->     <div class="form-group">
+                             <input type="text"   name="verficationcode" maxlength="5" autocomplete="off" required  style="width: 200px;"  placeholder="Enter Captcha" autofocus />&nbsp;
 
+                             <img src="captcha.php">
+                           </div>   <!--Cpatcha Image -->
 
  <button type="submit" name="login" class="btn btn-info">LOGIN </button> | <a href="signup.php">Not Register Yet</a>
 </form>
