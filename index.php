@@ -27,11 +27,17 @@ $_SESSION['login']=$_POST['emailid'];
 echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
 } else {
 echo "<script>alert('Your Account Has been blocked .Please contact admin');</script>";
-}}}
+
+}
+}
+
+} 
+
 else{
 echo "<script>alert('Invalid Details');</script>";
 }
 }
+
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,7 +46,7 @@ echo "<script>alert('Invalid Details');</script>";
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>E-Lib Management System | </title>
+    <title>Online Library Management System | </title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -49,7 +55,7 @@ echo "<script>alert('Invalid Details');</script>";
     <link href="assets/css/style.css" rel="stylesheet" />
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <script src='https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body>
     <!------MENU SECTION START-->
@@ -117,17 +123,18 @@ echo "<script>alert('Invalid Details');</script>";
 <input class="form-control" type="password" name="password" required autocomplete="off"  />
 <p class="help-block"><a href="user-forgot-password.php">Forgot Password</a></p>
 </div>
+
+
+
  <button type="submit" name="login" class="btn btn-info">LOGIN </button> | <a href="signup.php">Not Register Yet</a>
-<div class="g-recaptcha"
-data-sitekey="6LdKtHcjAAAAADK-kytuj_JQxHs1xUh6bWyFPt4k"></div> 
-</div>
 </form>
  </div>
 </div>
 </div>
-</div>
+</div>  
 <!---LOGIN PABNEL END-->            
              
+ 
     </div>
     </div>
      <!-- CONTENT-WRAPPER SECTION END-->

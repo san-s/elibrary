@@ -27,13 +27,17 @@ $_SESSION['login']=$_POST['emailid'];
 echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
 } else {
 echo "<script>alert('Your Account Has been blocked .Please contact admin');</script>";
-}}}
+
+}
+}
+
+} 
+
 else{
 echo "<script>alert('Invalid Details');</script>";
 }
 }
-define('SITE_KEY', '6Lf0g3cjAAAAAH3WPVaX0hou0IalnkxusglQSXOJ');
-define('SECRET_KEY', '6Lf0g3cjAAAAAMEeJ_X4WdD0AW3_r_vRbHvnTzU9');
+
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -51,7 +55,7 @@ define('SECRET_KEY', '6Lf0g3cjAAAAAMEeJ_X4WdD0AW3_r_vRbHvnTzU9');
     <link href="assets/css/style.css" rel="stylesheet" />
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <script src ='https://www.google.com/recaptcha/api.js?render=<?php echo SIETE_KEY; ?>'></script>
+    <script src='https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <!------MENU SECTION START-->
@@ -118,30 +122,21 @@ define('SECRET_KEY', '6Lf0g3cjAAAAAMEeJ_X4WdD0AW3_r_vRbHvnTzU9');
 <label>Password</label>
 <input class="form-control" type="password" name="password" required autocomplete="off"  />
 <p class="help-block"><a href="user-forgot-password.php">Forgot Password</a></p>
-<input type="text" id="g-recaptcha-response" name="g-recaptcha-response" />
 </div>
 
 
 
  <button type="submit" name="login" class="btn btn-info">LOGIN </button> | <a href="signup.php">Not Register Yet</a>
+<div class="g-recaptcha"
+data-sitekey="6LdKtHcjAAAAADK-kytuj_JQxHs1xUh6bWyFPt4k"></div> 
 </form>
  </div>
 </div>
 </div>
 </div>
-<script>
-grecaptcha.ready(function() {
-grecaptcha.execute('<?php echo SITE_KEY; ?>', {action: 'action_name'}}
-.then(function(token){
-//console.log(token);
-document.getElementById('g-recaptcha-response').value=token;
-//verify the token on the server.
-}};
-}};
-</script> 
 <!---LOGIN PABNEL END-->            
              
- 
+
     </div>
     </div>
      <!-- CONTENT-WRAPPER SECTION END-->
