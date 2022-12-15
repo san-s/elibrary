@@ -15,6 +15,10 @@ $query-> bindParam(':username', $username, PDO::PARAM_STR);
 $query-> bindParam(':password', $password, PDO::PARAM_STR);
 $query-> execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
+
+$date = new DateTime();
+$date = $date->format("yyyy:mm:dd hh:mm:ss");
+
 if($query->rowCount() > 0)
 {
 $_SESSION['alogin']=$_POST['username'];

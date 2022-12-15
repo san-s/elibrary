@@ -20,27 +20,41 @@ $sql ="SELECT EmailId,Password,StudentId,Status FROM tblstudents WHERE EmailId=:
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':email', $email, PDO::PARAM_STR);
 $query-> bindParam(':password', $password, PDO::PARAM_STR);
+// $query-> bindParam(':StudentId', $id, PDO::PARAM_STR);
+// $rs=$query->fetch();
 $query-> execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$date = new DateTime();
-$date = $date->format("y:m:d h:i:s");
+// $_SESSION['Studentid']=$id;
+// $date = new dateTime();
+// $date = date_defult_timezone_set('UTC');
+// $date = $date->format("y/m/d h:i:s");
+// $date = $date->format("l jS \of F Y h:i:s A");
+
+$date = date_default_timezone_set('UTC');
+$date = (new DateTime())->format('Y-m-d H:i:s') . PHP_EOL;
+$date = date_default_timezone_set('Europe/London');
+$date = (new DateTime())->format('Y-m-d H:i:s');
 
 if($query->rowCount() > 0)
 {
  foreach ($results as $result) {
  $_SESSION['stdid']=$result->StudentId;
+
+
+
 if($result->Status==1)
 {
 $_SESSION['login']=$_POST['emailid'];
 echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
   $d=mktime(11, 14, 54, 8, 12, 2014);
   $fp = fopen('accounts.txt', 'a+');
-    if(fwrite($fp, "$email && $date\n"))  {
-        echo 'saved';
-
+    if(fwrite($fp, "$email   $date\n"))  {
+        echo 'saved';          
     }
 fclose ($fp); 
-} else {
+} 
+
+else {
 echo "<script>alert('Your Account Has been blocked .Please contact admin');</script>";
 
 }
@@ -50,8 +64,7 @@ echo "<script>alert('Your Account Has been blocked .Please contact admin');</scr
 else{
 echo "<script>alert('Invalid Details');</script>";
 }
-}
-}
+}}
 
 ?>
 <!DOCTYPE html>

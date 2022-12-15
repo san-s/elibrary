@@ -1,7 +1,6 @@
 <?php 
 session_start();
 include('includes/config.php');
-include('includes/inputval.php');
 error_reporting(0);
 if(isset($_POST['signup']))
 {
@@ -17,7 +16,20 @@ $StudentId= $hits[0];
 $fname=$_POST['fullanme'];
 $mobileno=$_POST['mobileno'];
 $email=$_POST['email']; 
-$password=md5($_POST['password']); 
+$password=$_POST['password'];
+
+if(!preg_match("/^(?=.{10,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+]).*$/",$password))
+{
+echo "<script>alert('Password must contain minimum one of the following Capital letter, number, special charecter');</script>";
+}
+  elseif(!(strlen($password)>=10 && strlen($password)<128))
+  {
+                    echo "<script>alert('Lenght does not match');</script>";
+  }
+else
+{
+$password=md5($_POST['password']);
+ 
 $status=1;
 $sql="INSERT INTO  tblstudents(StudentId,FullName,MobileNumber,EmailId,Password,Status) VALUES(:StudentId,:fname,:mobileno,:email,:password,:status)";
 $query = $dbh->prepare($sql);
@@ -38,7 +50,7 @@ else
 echo "<script>alert('Something went wrong. Please try again');</script>";
 }
 }
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +109,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">User Signup</h4>
+                <h4 class="header-line">Student Signup</h4>
                 
                             </div>
 
