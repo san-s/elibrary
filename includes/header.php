@@ -60,7 +60,7 @@
       <li><a href="index.php#ulogin">Student Login</a></li>
                             <li><a href="signup.php">Student Signup</a></li>
                          
-                            <li><a href="adminlogin.php">Admin Login</a></li>
+                            
 
                         </ul>
                     </div>

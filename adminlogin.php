@@ -7,6 +7,16 @@ $_SESSION['alogin']='';
 }
 if(isset($_POST['login']))
 {
+
+//captcha
+
+if ($_POST["verficationcode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')
+    {
+    echo "<script>alert('Incorrect captcha');</script>" ;
+    }
+    else
+		{
+
 $username=$_POST['username'];
 $password=md5($_POST['password']);
 $sql ="SELECT UserName,Password FROM admin WHERE UserName=:username and Password=:password";
@@ -16,17 +26,25 @@ $query-> bindParam(':password', $password, PDO::PARAM_STR);
 $query-> execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 
-$date = new DateTime();
-$date = $date->format("yyyy:mm:dd hh:mm:ss");
+$date = date_default_timezone_set('UTC');
+$date = (new DateTime())->format('Y-m-d H:i:s') . PHP_EOL;
+$date = date_default_timezone_set('Europe/London');
+$date = (new DateTime())->format('Y-m-d H:i:s');
 
 if($query->rowCount() > 0)
 {
 $_SESSION['alogin']=$_POST['username'];
 echo "<script type='text/javascript'> document.location ='admin/dashboard.php'; </script>";
-} else{
+  $d=mktime(11, 14, 54, 8, 12, 2014);
+  $fp = fopen('admin/accounts.txt', 'a+');
+    if(fwrite($fp, "$username   $date\n"))  {
+        echo 'saved';          
+    }
+fclose ($fp); 
+} 
+else {
 echo "<script>alert('Invalid Details');</script>";
-}
-}
+}}}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -76,6 +94,14 @@ echo "<script>alert('Invalid Details');</script>";
 <label>Password</label>
 <input class="form-control" type="password" name="password" autocomplete="off" required />
 </div>
+
+<!--Cpatcha Image -->     <div class="form-group">
+                             <input type="text"   name="verficationcode" maxlength="5" autocomplete="off" required  style="width: 200px;"  placeholder="Enter Captcha" autofocus />&nbsp;
+
+                             <img src="captcha.php">
+                           </div>   <!--Cpatcha Image -->
+
+
 
  <button type="submit" name="login" class="btn btn-info">LOGIN </button>
 </form>

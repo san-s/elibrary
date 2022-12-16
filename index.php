@@ -5,6 +5,16 @@ include('includes/config.php');
 if($_SESSION['login']!=''){
 $_SESSION['login']='';
 }
+
+
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 60)) {
+    // last request was more than 30 minutes ago
+    session_unset();     // unset $_SESSION variable for the run-time 
+    session_destroy();   // destroy session data in storage
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
+
 if(isset($_POST['login']))
 {
 if ($_POST["verficationcode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')
@@ -20,11 +30,13 @@ $sql ="SELECT EmailId,Password,StudentId,Status FROM tblstudents WHERE EmailId=:
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':email', $email, PDO::PARAM_STR);
 $query-> bindParam(':password', $password, PDO::PARAM_STR);
-// $query-> bindParam(':StudentId', $id, PDO::PARAM_STR);
-// $rs=$query->fetch();
+//$query-> bindParam(':StudentId', $StudentId, PDO::PARAM_STR);
+//$sql -> bind_result($email,$password,$StudentId);
+//$rs=$sql->fetch();
+//$sql->close();
 $query-> execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-// $_SESSION['Studentid']=$id;
+$_SESSION['Studentid']=$StudentId;
 // $date = new dateTime();
 // $date = date_defult_timezone_set('UTC');
 // $date = $date->format("y/m/d h:i:s");
@@ -35,20 +47,21 @@ $date = (new DateTime())->format('Y-m-d H:i:s') . PHP_EOL;
 $date = date_default_timezone_set('Europe/London');
 $date = (new DateTime())->format('Y-m-d H:i:s');
 
+
 if($query->rowCount() > 0)
 {
  foreach ($results as $result) {
  $_SESSION['stdid']=$result->StudentId;
 
-
-
 if($result->Status==1)
 {
 $_SESSION['login']=$_POST['emailid'];
 echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
+
+  $ip=$_SERVER['REMOTE_ADDR'];
   $d=mktime(11, 14, 54, 8, 12, 2014);
   $fp = fopen('accounts.txt', 'a+');
-    if(fwrite($fp, "$email   $date\n"))  {
+    if(fwrite($fp, "$email   $date  $ip  $city"))  {
         echo 'saved';          
     }
 fclose ($fp); 
