@@ -18,7 +18,8 @@ if ($_POST["verficationcode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='
 		{
 
 $username=$_POST['username'];
-$password=md5($_POST['password']);
+//$password=md5($_POST['password']);
+$password=hash("sha512",$_POST['password']);
 $sql ="SELECT UserName,Password FROM admin WHERE UserName=:username and Password=:password";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':username', $username, PDO::PARAM_STR);

@@ -28,7 +28,8 @@ echo "<script>alert('Password must contain minimum one of the following Capital 
   }
 else
 {
-$password=md5($_POST['password']);
+//$password=md5($_POST['password']);
+$password=hash("sha512",$_POST['password']);
  
 $status=1;
 $sql="INSERT INTO  tblstudents(StudentId,FullName,MobileNumber,EmailId,Password,Status) VALUES(:StudentId,:fname,:mobileno,:email,:password,:status)";
