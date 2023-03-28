@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'elibwebapp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_728689EC375D470ABB2E22BE67DAA3AB }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5E08097665A0449CAE06A5DAB4B2380A }}
           package: .
